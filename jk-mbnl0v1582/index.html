@@ -385,7 +385,7 @@
   <header class="hero">
     <h1>思维精华回顾</h1>
     <p class="sub">三块：值得反复想的思考、书里学到的知识、可调用的思维工具。从今天起重新攒；只收过品质分的。</p>
-    <p class="updated">更新于 2026-11-05（北京时间）· 思考与知识从今天起攒 · 11 个工具</p>
+    <p class="updated">更新于 2026-11-06（北京时间）· 思考 1 条 · 11 个工具</p>
   </header>
 
   <div class="howto">
@@ -432,20 +432,27 @@ const CATEGORIES = [
 /** 每晚可往 ESSENCES 末尾追加（勿改字段名）。入选须过评分门槛，见 notes/essence-rules.md */
 const ESSENCES = [
   // 从 2026-11-05（北京时间）起重新攒。旧条目已清空。
-  // 示例字段（勿当真实条目留下）：
-  // {
-  //   id: "e-YYYYMMDD-slug",
-  //   date: "YYYY-MM-DD",
-  //   source: "思维训练课",
-  //   category: "see",
-  //   question: "……",
-  //   conclusion: "……",
-  //   process: ["……", "……"],
-  //   extend: ["……"],
-  //   openQuestion: "……",
-  //   tools: [],
-  //   rating: { own: 5, process: 5, transfer: 4, revisit: 5, clarity: 4, total: 23 }
-  // }
+  {
+    id: "e-20261105-money-trial",
+    date: "2026-11-05",
+    source: "思维训练课",
+    category: "judge",
+    question: "钱买到的是什么？",
+    conclusion: "钱买到的不只是安全感，是试错的资格；钱买次数，信息不一定买对方向，判断力才是不靠钱、只靠时间能自己造出来的东西。",
+    process: [
+      "钱本质上是把知识变成成果时的试错成本和等待成本。有半年现金储备的人更敢试，因为试错的代价扛得住；没储备的人不是不想试，是试不起，只能选稳的。所以钱买到的不只是安全感，是试错的资格。但钱买的是试错的次数，不是试错的方向——方向错了，钱烧得越快。",
+      "反常识的推论：越缺钱的人越依赖别人的经验（因为自己试不起），但别人的经验最不可靠，这是个死结。有钱的人可以自己试，所以更敢信自己的判断。",
+      "这形成累积优势循环：有钱的人敢试→试对了更有钱→试错资格更多；没钱的人只能买别人的经验→方向打折扣→越来越难翻身。但循环有漏洞：钱提高的是试对的机会，不是一定试对。",
+      "破口在于：钱买次数，信息买方向，而判断力是唯一能自己造出来的东西——不需要钱，只需要时间。纳瓦尔的例子：就算一无所有也有把握一两年东山再起，因为判断力是经验沉淀下来的，不是钱的问题。"
+    ],
+    extend: [
+      "工厂报价或备货时，有缓冲的人敢先试小单、试新渠道；没缓冲的人只能选稳的——这往往不是胆识差，是试错资格不同。",
+      "口播或转行也一样：方向错了，钱烧得越快；所以先用判断力筛方向，再用有限的次数去试。"
+    ],
+    openQuestion: "判断力怎么验证？这三层（跟有经验的人学、自己看书练模拟、工作中小实验）哪一层最容易被跳过？",
+    tools: ["opp-cost", "feynman"],
+    rating: { own: 5, process: 5, transfer: 5, revisit: 5, clarity: 5, total: 25 }
+  }
 ];
 
 /** 知识库 · 书里学到的。从 2026-11-05 起重新攒，勿预填旧笔记。过知识评分门槛才追加。 */
@@ -856,10 +863,10 @@ function renderTool(t, isBook) {
 }
 function escapeHtml(s) {
   return String(s)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
+    .replace(/&/g, "&")
+    .replace(/</g, "<")
+    .replace(/>/g, ">")
+    .replace(/"/g, """);
 }
 function renderBreadth() {
   const map = fieldBreadth();
