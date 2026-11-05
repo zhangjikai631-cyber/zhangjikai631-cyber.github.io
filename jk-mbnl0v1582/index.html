@@ -13,23 +13,26 @@
 <link rel="manifest" href="manifest.json">
 <meta name="format-detection" content="telephone=no">
 <title>思维精华回顾</title>
+
 <style>
   :root {
-    --bg: #f7f6f3;
+    --bg: #f6f3ee;
     --card: #ffffff;
-    --text: #1a1a1a;
-    --text2: #4a4a4a;
-    --text3: #8a8a8a;
-    --border: #e6e4df;
-    --border2: #d0cdc6;
-    --accent: #2f6fed;
-    --accent-soft: #e8effc;
-    --radius: 16px;
+    --text: #1c1630;
+    --text2: #4a4260;
+    --text3: #8a829a;
+    --border: #e8e2d8;
+    --border2: #d4cdc0;
+    --purple: #2E1F6E;
+    --purple2: #4a348f;
+    --amber: #c47a2c;
+    --amber-soft: #f5e6d0;
+    --purple-soft: #ece8f7;
+    --radius: 18px;
   }
   * { box-sizing: border-box; }
   html, body {
-    margin: 0;
-    padding: 0;
+    margin: 0; padding: 0;
     background: var(--bg);
     color: var(--text);
     font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB",
@@ -37,59 +40,52 @@
     -webkit-text-size-adjust: 100%;
   }
   body {
-    padding: 20px 16px 48px;
-    padding-bottom: calc(48px + env(safe-area-inset-bottom, 0px));
+    padding: 20px 16px 56px;
+    padding-bottom: calc(56px + env(safe-area-inset-bottom, 0px));
   }
-  .wrap {
-    max-width: 640px;
-    margin: 0 auto;
+  .wrap { max-width: 640px; margin: 0 auto; }
+  .hero {
+    background: linear-gradient(145deg, #2E1F6E 0%, #4a348f 55%, #c47a2c 140%);
+    color: #fff;
+    border-radius: 22px;
+    padding: 22px 20px 18px;
+    margin-bottom: 18px;
+    box-shadow: 0 10px 28px rgba(46,31,110,.22);
   }
-  h1 {
-    font-size: 24px;
-    font-weight: 700;
-    line-height: 1.35;
+  .hero h1 {
+    font-size: 24px; font-weight: 700; line-height: 1.35;
     margin: 0 0 8px;
   }
-  .sub {
-    font-size: 15px;
-    line-height: 1.65;
-    color: var(--text2);
-    margin: 0 0 8px;
+  .hero .sub {
+    font-size: 15px; line-height: 1.65;
+    opacity: .92; margin: 0 0 10px;
   }
-  .updated {
-    font-size: 13px;
-    color: var(--text3);
-    margin: 0 0 18px;
+  .hero .updated {
+    font-size: 12px; opacity: .75; margin: 0;
   }
   .howto {
-    background: var(--accent-soft);
+    background: var(--card);
+    border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: 14px 16px;
-    font-size: 14px;
-    line-height: 1.65;
+    font-size: 14px; line-height: 1.7;
     color: var(--text2);
-    margin-bottom: 20px;
+    margin-bottom: 18px;
   }
   .howto strong {
-    display: block;
-    color: var(--text);
-    margin-bottom: 4px;
-    font-size: 14px;
+    display: block; color: var(--text);
+    margin-bottom: 6px; font-size: 14px;
   }
-  .panel {
-    margin-bottom: 22px;
-  }
+  .howto ol { margin: 6px 0 0; padding-left: 1.2em; }
+  .howto li { margin-bottom: 4px; }
+  .panel { margin-bottom: 18px; }
   .panel-title {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text3);
-    letter-spacing: 0.02em;
-    margin: 0 0 10px;
+    font-size: 13px; font-weight: 600;
+    color: var(--text3); letter-spacing: .04em;
+    margin: 0 0 10px; text-transform: none;
   }
   .chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+    display: flex; flex-wrap: wrap; gap: 8px;
     margin-bottom: 12px;
   }
   .chip {
@@ -99,128 +95,158 @@
     color: var(--text2);
     border-radius: 999px;
     padding: 8px 14px;
-    font-size: 14px;
-    line-height: 1.2;
+    font-size: 14px; line-height: 1.3;
     cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
   }
   .chip.active {
-    background: var(--text);
+    background: var(--purple);
+    border-color: var(--purple);
     color: #fff;
-    border-color: var(--text);
   }
-  .row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    align-items: center;
-    margin-bottom: 12px;
+  .chip.soft.active {
+    background: var(--amber);
+    border-color: var(--amber);
   }
-  select {
-    flex: 1 1 140px;
-    min-width: 140px;
-    font-size: 15px;
-    padding: 10px 12px;
-    border-radius: 12px;
-    border: 1px solid var(--border);
-    background: var(--card);
-    color: var(--text);
-  }
-  .toggle {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 14px;
-    color: var(--text2);
-    user-select: none;
-  }
-  .toggle input {
-    width: 18px;
-    height: 18px;
+  .toolbar {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    align-items: center; margin-bottom: 8px;
   }
   .btn {
     appearance: none;
     border: none;
-    border-radius: 12px;
-    padding: 11px 16px;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .btn-primary {
-    background: var(--accent);
+    background: var(--purple);
     color: #fff;
+    border-radius: 999px;
+    padding: 10px 16px;
+    font-size: 15px; font-weight: 600;
+    cursor: pointer;
   }
-  .btn-quiet {
+  .btn.ghost {
     background: var(--card);
-    color: var(--text2);
-    border: 1px solid var(--border);
+    color: var(--purple);
+    border: 1px solid var(--border2);
   }
   .count {
-    font-size: 14px;
-    color: var(--text3);
+    font-size: 13px; color: var(--text3);
+    margin-left: 4px;
   }
-  .date-h {
-    font-size: 16px;
-    font-weight: 650;
-    margin: 28px 0 12px;
-    color: var(--text);
+  .cat-desc {
+    font-size: 13px; line-height: 1.6;
+    color: var(--text2);
+    background: var(--purple-soft);
+    border-radius: 12px;
+    padding: 10px 12px;
+    margin: 0 0 14px;
   }
   .card {
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 20px 18px;
+    padding: 18px 16px 14px;
     margin-bottom: 14px;
+    box-shadow: 0 1px 0 rgba(46,31,110,.04);
+  }
+  .card.highlight {
+    border-color: var(--amber);
+    box-shadow: 0 0 0 2px rgba(196,122,44,.18);
   }
   .card-top {
-    display: flex;
-    justify-content: space-between;
-    gap: 12px;
-    align-items: flex-start;
+    display: flex; justify-content: space-between;
+    gap: 12px; align-items: flex-start;
   }
-  .conclusion {
-    font-size: 18px;
-    line-height: 1.55;
-    font-weight: 650;
-    margin: 0 0 12px;
-    flex: 1;
+  .q {
+    font-size: 18px; font-weight: 700;
+    line-height: 1.45; color: var(--text);
+    margin: 0 0 10px; flex: 1;
   }
   .star {
-    appearance: none;
-    border: none;
-    background: transparent;
-    font-size: 22px;
-    line-height: 1;
-    padding: 0;
-    color: var(--text3);
-    cursor: pointer;
+    border: none; background: transparent;
+    color: var(--text3); font-size: 24px;
+    line-height: 1; padding: 0; cursor: pointer;
     flex-shrink: 0;
   }
-  .star.on { color: #e6a100; }
-  .thinking {
-    font-size: 17px;
-    line-height: 1.75;
-    color: var(--text2);
-    margin: 0;
+  .star.on { color: var(--amber); }
+  .conclusion {
+    font-size: 16px; font-weight: 600;
+    line-height: 1.55; color: var(--purple2);
+    margin: 0 0 12px;
+    padding: 10px 12px;
+    background: var(--purple-soft);
+    border-radius: 12px;
   }
-  .quote {
-    font-size: 15px;
-    line-height: 1.65;
-    color: var(--text3);
-    border-left: 3px solid var(--border2);
-    padding-left: 12px;
-    margin: 14px 0 0;
+  .conclusion::before {
+    content: "想通的结论";
+    display: block;
+    font-size: 12px; font-weight: 600;
+    color: var(--text3); margin-bottom: 4px;
+    letter-spacing: .04em;
+  }
+  details.block {
+    border-top: 1px solid var(--border);
+    margin-top: 4px;
+  }
+  details.block summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 12px 0 10px;
+    font-size: 15px; font-weight: 600;
+    color: var(--purple2);
+    display: flex; align-items: center; gap: 8px;
+  }
+  details.block summary::-webkit-details-marker { display: none; }
+  details.block summary::before {
+    content: "›";
+    display: inline-block;
+    transition: transform .2s ease;
+    font-size: 18px; line-height: 1;
+    color: var(--amber);
+  }
+  details.block[open] summary::before { transform: rotate(90deg); }
+  .process {
+    margin: 0 0 8px; padding-left: 0;
+    list-style: none;
+  }
+  .process li {
+    position: relative;
+    padding: 0 0 12px 28px;
+    font-size: 16px; line-height: 1.7;
+    color: var(--text2);
+  }
+  .process li:last-child { padding-bottom: 4px; }
+  .process li::before {
+    content: attr(data-n);
+    position: absolute; left: 0; top: 2px;
+    width: 20px; height: 20px;
+    border-radius: 999px;
+    background: var(--amber-soft);
+    color: var(--amber);
+    font-size: 12px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center; line-height: 20px;
+  }
+  .extend {
+    margin: 0; padding: 0 0 8px;
+    font-size: 16px; line-height: 1.7;
+    color: var(--text2);
+  }
+  .extend p { margin: 0 0 8px; }
+  .open-q {
+    margin: 8px 0 4px;
+    padding: 10px 12px;
+    background: var(--amber-soft);
+    border-radius: 12px;
+    font-size: 15px; line-height: 1.6;
+    color: var(--text);
+  }
+  .open-q strong {
+    display: block; font-size: 12px;
+    color: var(--amber); margin-bottom: 4px;
   }
   .meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px 12px;
-    align-items: center;
-    margin-top: 14px;
-    font-size: 12px;
-    color: var(--text3);
+    display: flex; flex-wrap: wrap;
+    gap: 6px 10px; align-items: center;
+    margin-top: 10px;
+    font-size: 12px; color: var(--text3);
   }
   .tag {
     display: inline-block;
@@ -229,381 +255,720 @@
     border: 1px solid var(--border);
     color: var(--text2);
   }
+  .section-head {
+    margin: 28px 0 12px;
+  }
+  .section-head h2 {
+    font-size: 18px; font-weight: 700;
+    margin: 0 0 6px; color: var(--text);
+  }
+  .section-head p {
+    margin: 0; font-size: 14px;
+    line-height: 1.65; color: var(--text2);
+  }
+  .tool {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  .tool .name {
+    font-size: 17px; font-weight: 700;
+    margin: 0 0 4px; color: var(--text);
+  }
+  .tool .from {
+    font-size: 12px; color: var(--text3);
+    margin: 0 0 10px;
+  }
+  .tool .solve {
+    font-size: 15px; line-height: 1.6;
+    color: var(--text2); margin: 0 0 8px;
+  }
+  .tool details summary {
+    list-style: none; cursor: pointer;
+    font-size: 14px; font-weight: 600;
+    color: var(--purple2);
+    padding: 8px 0;
+  }
+  .tool details summary::-webkit-details-marker { display: none; }
+  .tool details summary::before {
+    content: "› "; color: var(--amber);
+  }
+  .tool details[open] summary::before { content: "▾ "; }
+  .tool .steps {
+    margin: 0; padding-left: 1.2em;
+    font-size: 15px; line-height: 1.7; color: var(--text2);
+  }
+  .tool .ex {
+    margin: 8px 0 0;
+    padding: 10px 12px;
+    background: var(--amber-soft);
+    border-radius: 12px;
+    font-size: 14px; line-height: 1.6; color: var(--text);
+  }
+  .tool .ex em {
+    font-style: normal; font-size: 12px;
+    color: var(--amber); font-weight: 600;
+    display: block; margin-bottom: 2px;
+  }
+  .tool .links {
+    margin-top: 8px; font-size: 12px; color: var(--text3);
+  }
   .empty {
-    font-size: 15px;
-    color: var(--text3);
-    padding: 24px 4px;
+    text-align: center; color: var(--text3);
+    padding: 32px 12px; font-size: 15px;
+  }
+  .footer-note {
+    margin-top: 28px;
+    font-size: 12px; color: var(--text3);
+    line-height: 1.6; text-align: center;
   }
 </style>
+
 </head>
 <body>
-  <div class="wrap">
+<div class="wrap">
+  <header class="hero">
     <h1>思维精华回顾</h1>
-    <p class="sub">把你想通过、加深过的想法收成短文，手机上有空就翻一翻。书和课只是触发，中心永远是你自己的思考。</p>
-    <p class="updated">更新于 2026-11-05（北京时间）</p>
-    <div class="howto">
-      <strong>怎么用</strong>
-      按来源或主题筛选；点「随机翻一条」复习；星标只存在本机。离线也能打开，无需登录。
-    </div>
+    <p class="sub">这里不堆聊天记录。只留值得反复想的问题、想通的过程，以及还能往哪延伸。分类就是你自己的思考系统。</p>
+    <p class="updated">更新于 2026-11-05（北京时间）· 12 条思考 · 11 个工具</p>
+  </header>
 
-    <div class="panel">
-      <div class="panel-title">来源</div>
-      <div class="chips" id="sourceChips"></div>
-      <div class="row">
-        <select id="themeSelect" aria-label="主题"></select>
-        <label class="toggle"><input type="checkbox" id="favOnly"> 只看收藏</label>
-      </div>
-      <div class="row">
-        <button type="button" class="btn btn-primary" id="btnRandom">随机翻一条</button>
-        <button type="button" class="btn btn-quiet" id="btnAll" hidden>看全部列表</button>
-        <span class="count" id="countLabel"></span>
-      </div>
-    </div>
-
-    <div id="list"></div>
+  <div class="howto">
+    <strong>怎么用这一页</strong>
+    <ol>
+      <li>先看上面的分类：看清问题 / 做判断 / 行动与取舍 / 表达与成长。</li>
+      <li>每条默认只显示「问题」和「结论」；需要时再展开思考过程、还能往哪想。</li>
+      <li>点「随机翻一条」复习；星标收藏只存在你这台手机。</li>
+      <li>「思维工具箱」里是课上的方法和书里的架子，可和上面的思考对照着看。</li>
+    </ol>
   </div>
 
+  <div class="panel">
+    <div class="panel-title">思考系统 · 分类</div>
+    <div class="chips" id="catChips"></div>
+    <p class="cat-desc" id="catDesc"></p>
+    <div class="toolbar">
+      <button type="button" class="btn" id="btnRandom">随机翻一条</button>
+      <button type="button" class="btn ghost" id="btnAll">看列表</button>
+      <span class="count" id="count"></span>
+    </div>
+  </div>
+
+  <div id="essencePanel">
+    <div id="list"></div>
+  </div>
+  <div id="toolsPanel" style="display:none"></div>
+
+  <p class="footer-note">书只是触发；中心是你自己的思考。每晚有新的想通之处，会追加进来。</p>
+</div>
 <script>
-(function () {
-  var ESSENCES = [
+
+const CATEGORIES = [
+  { id: "all", name: "全部", desc: "" },
+  { id: "see", name: "看清问题", desc: "把混在一起的概念拆开，换角度、换尺度，看同一件事到底是什么。" },
+  { id: "judge", name: "做判断", desc: "不让表面数字和未经检验的说法带着走，先问证据和边界。" },
+  { id: "act", name: "行动与取舍", desc: "资源有限时，决定付什么成本、留什么余地、先做什么。" },
+  { id: "express", name: "表达与成长", desc: "把想通的变成自己的话；用深度和真实练习，而不是用过关感。" }
+];
+
+/** 每晚可往 ESSENCES 末尾追加（勿改字段名） */
+const ESSENCES = [
   {
-    "id": "e-20261105-abs-rel",
-    "date": "2026-11-05",
-    "source": "思维训练课",
-    "theme": "社会流动",
-    "conclusion": "日子过好了，不等于社会地位上升了。",
-    "thinking": "我以前把「过得比父辈好」和「往上走」混在一起。课上把绝对生活水平和相对社会地位拆开之后，我认这个区分：知识越来越便宜，并不自动打开上升通道；稀缺可能已经挪到机会、资本、资源和能试错的能力上。"
+    id: "e-20261105-knowledge-ladder",
+    date: "2026-11-05",
+    source: "思维训练课",
+    category: "see",
+    question: "为什么知识越来越便宜，上升却感觉更难？",
+    conclusion: "日子过好了，不等于社会地位上升了；稀缺点已经从「知识」挪到机会、资本和能试错的空间。",
+    process: [
+      "我一直在问：古代读书能改变命运，现在知识几乎免费，为什么普通人反而觉得难以上升？",
+      "课上把「绝对生活水平」和「相对社会地位」拆开之后，我认这个区分——以前我把「过得比父辈好」和「往上走」混在一起了。",
+      "我想通的是：不是知识没用了，是知识不再是瓶颈；优质机会、社会资本和试错空间才更紧。"
+    ],
+    extend: [
+      "工厂销售里：客户「知道」产品参数，不等于他愿意下单——卡点可能是信任、账期或风险承受，而不是信息不够。",
+      "口播里：别只讲「多读书就行」，可以讲稀缺点已经转移，听众更容易对上当下的卡住感。"
+    ],
+    openQuestion: "如果机会真的变少了，和「衡量上升的尺子变了」，怎么区分？我有没有把两者混在一起？",
+    tools: ["wealth-status", "tech-scarce"]
   },
   {
-    "id": "e-20261105-money-cost",
-    "date": "2026-11-05",
-    "source": "思维训练课",
-    "theme": "试错",
-    "conclusion": "钱，是把知识变成果的试错与等待成本。",
-    "thinking": "这是我自己提出来、还没深挖完的一句话。同样受过教育的两个人，一个有半年现金储备，一个必须当月赚钱，面对同一个创业或转行机会，决策会完全不一样。知识够了还不够，还得付得起试错和等待。",
-    "quote": "钱是把知识变成果的试错与等待成本"
+    id: "e-20261105-money-cost",
+    date: "2026-11-05",
+    source: "思维训练课",
+    category: "act",
+    question: "钱在「把知识变成成果」里，到底扮演什么角色？",
+    conclusion: "钱，是把知识变成果的试错与等待成本——知识够了还不够，还得付得起试错和等待。",
+    process: [
+      "这是我自己提出来、还没深挖完的一句话。",
+      "我想到对照：同样受过教育的两个人，一个有半年现金储备，一个必须当月赚钱，面对同一个创业或转行机会，决策会完全不一样。",
+      "所以钱不只是「奖励」，更像给试错和等待买时间的门票。这条还要继续追问反例。"
+    ],
+    extend: [
+      "销售里：报价和账期，其实也是在谈对方愿不愿意付试错成本。",
+      "口播里：可以说「我不是缺方法，是缺付得起失败的空间」——很多人会共鸣。"
+    ],
+    openQuestion: "有资本为什么还会失败？没有资本为什么有人成功？这两种反例分别说明什么机制？",
+    tools: ["opp-cost", "goose-egg"]
   },
   {
-    "id": "e-20261105-knowledge-ladder",
-    "date": "2026-11-05",
-    "source": "思维训练课",
-    "theme": "社会流动",
-    "conclusion": "知识门槛降了，上升感却更难——稀缺点已经转移。",
-    "thinking": "我一直在问：古代读书能改变命运，现在知识几乎免费，为什么普通人反而觉得难以上升？我越来越觉得，不是知识没用了，是知识不再是瓶颈；优质机会、社会资本和试错空间才更紧。",
-    "quote": "古代读书能改变命运，现在知识几乎免费，为何普通人反而感觉难以上升？"
+    id: "e-20261105-inequality",
+    date: "2026-11-05",
+    source: "思维训练课",
+    category: "judge",
+    question: "「发展必然导致不均」能直接当真吗？",
+    conclusion: "财富差距变大，可能和机会、福利、分配机制有关；「发展就会不均」不能当成不用检验的事实。",
+    process: [
+      "讨论社会流动时，我进一步觉得差距变大未必是发展的自然结果。",
+      "我停下来问：这句话在什么条件下成立？有没有反例？",
+      "所以我先把它当成待检验的假设，而不是结论。"
+    ],
+    extend: [
+      "生活里听到「本来就这样」的说法时，先问条件和反例，再决定信不信。",
+      "口播里：把「必然」改成「在什么条件下容易出现」，观点会更站得住。"
+    ],
+    openQuestion: "如果所有人比父辈过得好，但贫富差距更大了，这算进步还是退步？要从哪几个尺子分别量？",
+    tools: ["familiar-illusion"]
   },
   {
-    "id": "e-20261105-inequality",
-    "date": "2026-11-05",
-    "source": "思维训练课",
-    "theme": "分配",
-    "conclusion": "「发展必然导致不均」不能直接当事实。",
-    "thinking": "我进一步觉得，财富差距变大，可能和机会、福利、分配机制有关。不能把「发展就会不均」当成不用检验的结论，还要看在什么条件下成立，有没有反例。"
+    id: "e-20261105-ai-scarcity",
+    date: "2026-11-05",
+    source: "思维训练课",
+    category: "see",
+    question: "知识近乎免费之后，真正稀缺的会转向什么？",
+    conclusion: "我怀疑稀缺会转向「看见当下和未来的社会需求，再匹配专业与执行」——先放进问题台账，不急着在书籍主线上展开。",
+    process: [
+      "顺着「知识门槛下降」往下想，AI 让知识更便宜时，瓶颈会挪到哪里？",
+      "我提出一个猜想：识别需求 + 匹配执行，可能成为新门槛。",
+      "我自己要求：先记下来，别把当前「书籍普及」主线扯散。"
+    ],
+    extend: [
+      "工厂销售：客户真正买的往往不是参数表，而是「我的需求你懂不懂、你能不能落地」。",
+      "口播选题：与其堆知识，不如练「看见一个具体人的卡住点」。"
+    ],
+    openQuestion: "「看见需求」这件事，本身要靠什么训练？观察、访谈，还是先自己踩过坑？",
+    tools: ["tech-scarce", "ask-why-buy"]
   },
   {
-    "id": "e-20261105-ai-scarcity",
-    "date": "2026-11-05",
-    "source": "思维训练课",
-    "theme": "AI与稀缺",
-    "conclusion": "知识近乎免费之后，稀缺可能转向「看见需求 + 匹配执行」。",
-    "thinking": "AI 让知识越来越便宜时，我怀疑真正难的变成：能不能识别当下和未来的社会需求，再把自己的专业和执行能力对上去。这条我先放进问题台账，不急着在书籍主线上展开。"
+    id: "e-20261101-scale",
+    date: "2026-11-01",
+    source: "思维训练课",
+    category: "see",
+    question: "一个人觉得无辜，群体怎么还会伤人？",
+    conclusion: "「我没错」和「集体结果很糟」可以同时成立——要从个体换到群体、再到制度看。",
+    process: [
+      "低价劣质品、群体模仿、平台激励叠在一起时，单个买家或卖家都可以觉得自己没做错。",
+      "我试着从个体到群体再到制度换尺度看。",
+      "才发现：个人无辜感，挡不住加总之后的伤害。"
+    ],
+    extend: [
+      "销售里：一个「小妥协」看起来无害，全员都这么做时，信誉可能已经被掏空。",
+      "口播里：适合讲「我一个人这样没关系」背后的盲区。"
+    ],
+    openQuestion: "我自己在工厂或账号运营里，有没有「单个看合理、加总很糟」的习惯？",
+    tools: ["scale-shift"]
   },
   {
-    "id": "e-20261105-deep-talk",
-    "date": "2026-11-05",
-    "source": "聊天想法",
-    "theme": "学习方式",
-    "conclusion": "浅问浅答、马上表扬归档，等于没真正想。",
-    "thinking": "我明确批评过那种模式：抛个浅问题，我答一句就夸、就归档、就结束。我要的是真实思考、深度和辩论，不是被哄着过关。分支没讲透，就不能用一句结论收场。"
+    id: "e-20261026-narrow-view",
+    date: "2026-10-26",
+    source: "思维训练课",
+    category: "see",
+    question: "只从生意角度看一件事，缺了什么？",
+    conclusion: "视角一窄，解释就少；逼自己跳出商业领域，才能看到替代解释、反向因果和该去查什么。",
+    process: [
+      "用「三分钱猫条」做跨学科拆时，我要求自己跳出商业领域。",
+      "我能指出自己视角狭窄，也能想到替代解释和调查方向。",
+      "这说明发散和因果链是要练的，不是天生就会。"
+    ],
+    extend: [
+      "工厂里看到异常：除了「谁的责任」，还可以问流程、激励、信息是不是歪的。",
+      "口播前问一句：这件事除了生意角度，还有心理、制度、历史哪一层？"
+    ],
+    openQuestion: "下一次我想解释一件事时，能不能主动列出三种不同领域的解释再比较？",
+    tools: ["causal-chain", "feynman"]
   },
   {
-    "id": "e-20261105-positioning",
-    "date": "2026-11-05",
-    "source": "灵感工作台",
-    "theme": "定位",
-    "conclusion": "工作台练的是「我说出自己的思考」，不是复述别人。",
-    "thinking": "我把定位定成：提升灵感，说出我自己的思考——普通人的成长分享。书、见闻、经历、念头、爆款都只是触发；产出必须是我的想法、我试过的做法、我得到的变化。把来源删掉还站得住，才算我的。",
-    "quote": "提升灵感，说出我自己的思考"
+    id: "e-20261030-80-78",
+    date: "2026-10-30",
+    source: "思维训练课",
+    category: "judge",
+    question: "差一点的实验数字，能证明药效吗？",
+    conclusion: "「200 只动物实验 80 对 78」不能直接归因于药效；随机波动、对照和证据门槛要先问清。",
+    process: [
+      "看到两个很接近的数字，直觉容易说「有效」。",
+      "课上碰到随机波动与对照实验后，我意识到表面数字会骗人。",
+      "以后先问：有没有对照？差异大到能排除碰巧吗？"
+    ],
+    extend: [
+      "销售话术或客户案例：别把「好像有效」讲成「已经证明」。",
+      "口播引用数据时，补一句「还缺什么证据」，可信度反而更高。"
+    ],
+    openQuestion: "我平时信的哪些「差不多就是有效」的说法，其实还没过证据门槛？",
+    tools: ["familiar-illusion"]
   },
   {
-    "id": "e-20261105-pipeline",
-    "date": "2026-11-05",
-    "source": "灵感工作台",
-    "theme": "系统",
-    "conclusion": "系统要像流水线：目的 → 主线 → 支线 → 方法 → 能力。",
-    "thinking": "模块一多我就蒙，不知道哪个在干什么。我要的不是堆一堆卡片方块，而是有归类、有引导、像流水线一样：先搞清目的，再拆主线和支线，方法为能力服务。后期灵感和卡片上百了，也要有怎么走下去的介绍。"
+    id: "e-20261030-cash-debt",
+    date: "2026-10-30",
+    source: "读书笔记",
+    category: "act",
+    question: "还债和留现金，怎么取舍？",
+    conclusion: "不要为了提前还贷把必要现金掏空，也不要一味把剩余现金全拿去还债——高息低息、应急备用、违约风险要分开看。",
+    process: [
+      "读《小狗钱钱》时，债务和现金流那段触动了我。",
+      "书里的建议有时互相拉扯，我加了自己的解释：不能一刀切。",
+      "取舍是我的：先分清债的种类和现金的用途，再决定顺序。"
+    ],
+    extend: [
+      "工厂经营和家庭账本一样：账面好看、现金见底，一样危险。",
+      "口播可以说「难的不是存钱或还债，是分清顺序」。"
+    ],
+    openQuestion: "我眼下那笔「想提前还掉」的钱，拿去当应急备用，会不会更值？",
+    tools: ["goose-egg", "opp-cost"]
   },
   {
-    "id": "e-20261105-ask-first",
-    "date": "2026-11-05",
-    "source": "聊天想法",
-    "theme": "协作",
-    "conclusion": "先把最终目标弄清楚，再动手；不懂就问，别闷头干。",
-    "thinking": "我跟助手说清楚了：以后做什么事，不要闷头去干。哪里不明白要问我；我让干的事，要全方位理解清楚。先理解最终目标，再通过细节把它做完。"
+    id: "e-20261105-deep-talk",
+    date: "2026-11-05",
+    source: "聊天想法",
+    category: "express",
+    question: "为什么浅问浅答等于没真正想？",
+    conclusion: "抛个浅问题、答一句就夸、就归档、就结束——那是过关，不是思考。分支没讲透，就不能用一句结论收场。",
+    process: [
+      "我明确批评过那种模式：浅问、快夸、快归档。",
+      "我要的是真实思考、深度和辩论，不是被哄着过关。",
+      "从那以后，我把「有没有真正想透」当成自己练习的标准。"
+    ],
+    extend: [
+      "跟客户谈方案：别急着收场，把卡点和反例问完，信任反而更深。",
+      "口播：宁可少讲一个观点，也要把那一个想透讲透。"
+    ],
+    openQuestion: "我最近哪一次「觉得自己懂了」，其实只是被一句好听的结论打发了？",
+    tools: ["feynman", "familiar-illusion"]
   },
   {
-    "id": "e-20261105-two-windows",
-    "date": "2026-11-05",
-    "source": "聊天想法",
-    "theme": "协作",
-    "conclusion": "灵感工作台和爆款创作要通气，合作越利越好。",
-    "thinking": "我这边练思考和口播，那边拆片和做账号，其实能互相帮。两边的结构、甚至动物知识之类都可以通，没商量也可以主动分享——合作越有利越好。"
+    id: "e-20261105-positioning",
+    date: "2026-11-05",
+    source: "灵感工作台",
+    category: "express",
+    question: "什么才算「我说出自己的思考」？",
+    conclusion: "书、见闻、经历、念头、爆款都只是触发；产出必须是我的想法、我试过的做法、我得到的变化——把来源删掉还站得住，才算我的。",
+    process: [
+      "我把晚间工作台的定位定成：提升灵感，说出我自己的思考——普通人的成长分享。",
+      "课上我选择不加「硬转口播」：上课专心练深度和观察，晚上再炼成卡片和口播。",
+      "两条线分开，反而更清楚：白天想透，晚上讲成自己的话。"
+    ],
+    extend: [
+      "拍口播前删掉书名和金句，剩下的话还是不是你的？不是就再炼。",
+      "销售沟通：少背话术，多讲你帮客户试过、验证过的判断。"
+    ],
+    openQuestion: "我下一条文案里，哪一句删掉出处就站不住？那句是不是该重写？",
+    tools: ["feynman", "leverage"]
   },
   {
-    "id": "e-20261105-observe",
-    "date": "2026-11-05",
-    "source": "思维训练课",
-    "theme": "观察",
-    "conclusion": "观察要落到细节和换位，不只是「看到了」。",
-    "thinking": "我同意每周插一次大约五分钟的观察练习：从当天工厂或路上的一件事里说出十个细节，再换三个角度看——比如客户、老板、十年后的自己。练完回到主线，不另开一摊。"
+    id: "e-20261105-pipeline",
+    date: "2026-11-05",
+    source: "灵感工作台",
+    category: "express",
+    question: "思考系统怎样才不会变成一堆卡片方块？",
+    conclusion: "系统要像流水线：目的 → 主线 → 支线 → 方法 → 能力；方法为能力服务，后期也要有「怎么走下去」的介绍。",
+    process: [
+      "模块一多我就蒙，不知道哪个在干什么。",
+      "我要的不是堆方块，而是有归类、有引导。",
+      "想清楚：先搞清目的，再拆主线和支线，方法是为能力服务的。"
+    ],
+    extend: [
+      "整理自己的笔记或口播选题库时，先写目的，再归类，别先堆工具。",
+      "带新人/对接客户：先对齐要达成什么，再谈方法和细节。"
+    ],
+    openQuestion: "我现在用的方法里，哪几样其实没有对准我真正要的能力？",
+    tools: ["leverage"]
   },
   {
-    "id": "e-20261105-no-oral-in-class",
-    "date": "2026-11-05",
-    "source": "聊天想法",
-    "theme": "边界",
-    "conclusion": "课上不硬转口播；深度和角度晚上再炼。",
-    "thinking": "口播转化环节我选择不加进语音课。课上专心练深度、角度和真实观察；晚上再拿到灵感工作台炼成卡片和口播。两条线分开，反而更清楚。"
-  },
-  {
-    "id": "e-20261101-scale",
-    "date": "2026-11-01",
-    "source": "思维训练课",
-    "theme": "尺度",
-    "conclusion": "个人觉得无辜，群体加总仍可能伤人。",
-    "thinking": "低价劣质品、群体模仿、平台激励叠在一起时，单个买家或卖家都可以觉得自己没做错。我试着从个体到群体再到制度换尺度看，才发现「我没错」和「集体结果很糟」可以同时成立。"
-  },
-  {
-    "id": "e-20261030-80-78",
-    "date": "2026-10-30",
-    "source": "思维训练课",
-    "theme": "证据",
-    "conclusion": "差一点的数字，不能直接当成药效证明。",
-    "thinking": "看到「200 只动物实验 80 对 78」时，我意识到不能直接归因于药效。随机波动、对照和证据门槛都要先问清楚，不然很容易被表面数字带着走。"
-  },
-  {
-    "id": "e-20261030-cash-debt",
-    "date": "2026-10-30",
-    "source": "读书笔记",
-    "theme": "现金流",
-    "conclusion": "还债和留现金不是口号，是取舍。",
-    "thinking": "读《小狗钱钱》时，我对债务和现金流那段加了自己的解释：不要为了提前还贷把必要现金掏空，也不要一味把剩余现金全拿去还债。高息低息、应急备用、违约风险要分开看，不能一刀切。书只是触发，取舍是我自己的。"
-  },
-  {
-    "id": "e-20261026-narrow-view",
-    "date": "2026-10-26",
-    "source": "思维训练课",
-    "theme": "视角",
-    "conclusion": "只从生意角度看一件事，视角已经窄了。",
-    "thinking": "用「三分钱猫条」做跨学科拆的时候，我要求自己跳出商业领域。我能指出自己视角狭窄，也能想到替代解释、反向因果和调查方向——这说明发散和因果链是要练的，不是天生就会。"
+    id: "e-20261105-observe",
+    date: "2026-11-05",
+    source: "思维训练课",
+    category: "see",
+    question: "观察怎样才算真正练到了？",
+    conclusion: "观察要落到细节和换位，不只是「看到了」——一件事里说出十个细节，再换三个角度看。",
+    process: [
+      "我同意每周插一次大约五分钟的观察练习。",
+      "从当天工厂或路上的一件事里说出十个细节（人、物、流程、数字、情绪）。",
+      "再换三个角度看——比如客户、老板、十年后的自己；练完回到主线。"
+    ],
+    extend: [
+      "工厂现场：同一条产线，用质检、销售、工人三个身份各看一遍。",
+      "口播素材：细节够了，故事才有画面，不必编。"
+    ],
+    openQuestion: "这周我有没有认真做过一次「十细节三角度」？卡在细节不够，还是角度单一？",
+    tools: ["observe-10-3", "ask-why-buy"]
   }
 ];
 
-  var SOURCES = ["全部来源", "思维训练课", "灵感工作台", "聊天想法", "读书笔记"];
-  var FAV_KEY = "essence-favs-v1";
 
-  var state = {
-    source: "全部来源",
-    theme: "全部主题",
-    favOnly: false,
-    favs: [],
-    randomId: null
-  };
-
-  function loadFavs() {
-    try {
-      var raw = localStorage.getItem(FAV_KEY);
-      if (!raw) return [];
-      var parsed = JSON.parse(raw);
-      return Array.isArray(parsed) ? parsed : [];
-    } catch (e) { return []; }
+/** 课上练过的可复用方法 */
+const COURSE_TOOLS = [
+  {
+    id: "causal-chain",
+    name: "因果链",
+    from: "思维训练课",
+    solves: "想解释「为什么」时，避免只停在表面原因。",
+    when: "遇到结果、想追原因，或觉得自己解释太快时。",
+    steps: [
+      "先写清结果是什么。",
+      "列出近因（最直接碰到的原因）。",
+      "再问深层机制：是激励、信息、习惯，还是制度在起作用？",
+      "找混杂因素和反例；问：什么证据能区分这些解释？"
+    ],
+    example: "产线次品变多：别只怪「工人不认真」。看设备保养、计件激励、检验标准有没有一起变。",
+    related: ["e-20261026-narrow-view"]
+  },
+  {
+    id: "scale-shift",
+    name: "换尺度",
+    from: "思维训练课",
+    solves: "个人觉得合理，整体结果却很糟时，帮你换一层看。",
+    when: "听到「我又没做错」或「就我一个人这样没关系」时。",
+    steps: [
+      "先站在个体：他为什么这么做？",
+      "再拉到群体：如果很多人都这样，总和是什么？",
+      "再看制度：规则、平台、考核有没有鼓励这种行为？"
+    ],
+    example: "客户要求「先便宜一点没关系」——单个单能接，但全接了可能把价格体系打穿。",
+    related: ["e-20261101-scale"]
+  },
+  {
+    id: "observe-10-3",
+    name: "十细节 · 三角度",
+    from: "思维训练课",
+    solves: "把「我看到了」练成真观察，给口播和判断攒素材。",
+    when: "每周一次，约五分钟；工厂或路上随手抓一件事。",
+    steps: [
+      "选定一件具体的事。",
+      "说出十个细节：人、物、流程、数字、情绪。",
+      "再换三个角度看：比如客户、老板、十年后的自己。",
+      "练完回到当天主线，不另开一摊。"
+    ],
+    example: "上班路上看到装卸货：数人数、听语气、看等待时间；再分别用司机、仓管、客户想一遍。",
+    related: ["e-20261105-observe"]
   }
-  function saveFavs(ids) {
-    try { localStorage.setItem(FAV_KEY, JSON.stringify(ids)); } catch (e) {}
+];
+
+/** 书里出现过、跟你思考相关的方法（依据你提供的摘录与阅读观察卡；不是全书摘要） */
+const BOOK_TOOLS = [
+  {
+    id: "wealth-status",
+    name: "财富游戏 vs 地位游戏",
+    book: "纳瓦尔宝典",
+    solves: "分清你在追求「可变好用的成果」，还是「压过别人的名次」。",
+    when: "觉得焦虑、攀比，或把「过得好」和「显得更高」混在一起时。",
+    steps: [
+      "问自己：这件事做成了，是我的生活真的松一点，还是只是显得比别人强？",
+      "财富游戏偏向创造、可复用；地位游戏常是零和比较。",
+      "做选择时，尽量把标准从「别人怎么看」拉回「我多了什么能力或余地」。"
+    ],
+    example: "口播为了涨粉去骂战，是地位游戏；讲清一个你试过的方法帮到同类人，更接近创造价值。",
+    related: ["e-20261105-knowledge-ladder"]
+  },
+  {
+    id: "leverage",
+    name: "杠杆：做一次，用很多次",
+    book: "纳瓦尔宝典",
+    solves: "找到能放大时间的方式，而不是只用更多加班换结果。",
+    when: "同一件事要反复做，或想让一份努力服务很多人时。",
+    steps: [
+      "分清杠杆类型：人力、资本、代码、内容/媒体等。",
+      "普通人较易起步的是内容杠杆：一次讲清楚，可以反复被看到。",
+      "问：我能不能把这次判断写成口播、卡片或话术，下次直接复用？"
+    ],
+    example: "工厂里反复解答的客户疑问，录成一条口播或话术卡，就不用每次从零解释。",
+    related: ["e-20261105-positioning", "e-20261105-pipeline"]
+  },
+  {
+    id: "opp-cost",
+    name: "机会成本",
+    book: "纳瓦尔宝典",
+    solves: "看清「选了这个，等于放弃了什么」。",
+    when: "觉得什么都想要，或只看到一件事的好处时。",
+    steps: [
+      "写下你准备投入的时间、钱、注意力。",
+      "列出因此做不了的下一件重要的事。",
+      "比较：留下的那条路，是不是你更愿意付的代价？"
+    ],
+    example: "把应急现金提前还低息贷款，机会成本可能是：突然要备货或家庭开支时，你没了缓冲。",
+    related: ["e-20261105-money-cost", "e-20261030-cash-debt"]
+  },
+  {
+    id: "feynman",
+    name: "费曼式讲清",
+    book: "纳瓦尔宝典",
+    solves: "检验自己是真懂，还是只是眼熟。",
+    when: "学完一个概念、读完一章，或准备拍口播前。",
+    steps: [
+      "用自己的话讲给一个外行人听，不背术语。",
+      "卡住的地方，就是还没懂的地方。",
+      "回去补那一块，再讲一遍，直到顺。"
+    ],
+    example: "把「试错成本」讲给工厂同事听：能不能举出你们报价时的真实例子？举不出就还没炼成自己的。",
+    related: ["e-20261105-deep-talk", "e-20261105-positioning", "e-20261026-narrow-view"]
+  },
+  {
+    id: "goose-egg",
+    name: "鹅与金蛋",
+    book: "小狗钱钱",
+    solves: "分清「能持续下蛋的资产」和「把鹅杀掉换一次钱」。",
+    when: "想动用本金、现金或长期能产生收入的东西时。",
+    steps: [
+      "问：这是鹅（能持续产出），还是蛋（一次性花掉）？",
+      "尽量保护能持续产生现金或能力的那部分。",
+      "还债、消费、投资分开看，别用口号替代顺序。"
+    ],
+    example: "客户关系和好口碑像鹅；为了冲一单把价格打穿，可能是在杀鹅取卵。",
+    related: ["e-20261030-cash-debt", "e-20261105-money-cost"]
+  },
+  {
+    id: "familiar-illusion",
+    name: "熟悉感错觉",
+    book: "小狗钱钱",
+    solves: "越「早就知道」的道理，越容易不再追问，结果一直没做到。",
+    when: "觉得一句话很耳熟、很对，但生活里从没执行时。",
+    steps: [
+      "标出那句「我早就知道」的话。",
+      "问：我最近一次按它做过是什么时候？结果如何？",
+      "若答不上来，就当成新问题重新拆，别用熟悉感当理解。"
+    ],
+    example: "「要观察客户」你可能听过一百次；用十细节三角度做一次，才算从熟悉变成能力。",
+    related: ["e-20261105-deep-talk", "e-20261030-80-78", "e-20261105-inequality"]
+  },
+  {
+    id: "tech-scarce",
+    name: "技术让什么变得稀缺",
+    book: "预测之书：1000天后的世界",
+    solves: "技术进步时，重新找真正值钱、变少的能力。",
+    when: "AI 或平台让某类知识/技能变便宜时。",
+    steps: [
+      "问：什么变便宜了、变容易复制了？",
+      "再问：什么反而更贵——判断、信任、审美、带队、落地？",
+      "把练习对准变稀缺的那一侧，而不是继续堆已经便宜的信息。"
+    ],
+    example: "产品参数网上都有；稀缺的是你能不能判断这个客户现在真正卡的是交期、质量还是价格。",
+    related: ["e-20261105-knowledge-ladder", "e-20261105-ai-scarcity"]
+  },
+  {
+    id: "ask-why-buy",
+    name: "售中追问「为什么买」",
+    book: "新电商认知",
+    solves: "从真实购买动机里找需求，而不是只猜参数。",
+    when: "客户下单、询价或犹豫时；做口播选题前。",
+    steps: [
+      "在售中自然问：这次主要看中哪一点？",
+      "记下高频动机，区分「他说的」和「他反复提到的」。",
+      "用这些动机反推话术、选品和内容角度；注意抽样偏差，别把几个客户当成全部市场。"
+    ],
+    example: "工厂客户说要「便宜」，追问后可能是「先小批量试错」——那你谈的是样品方案，不是一味降价。",
+    related: ["e-20261105-ai-scarcity", "e-20261105-observe"]
   }
-  function formatDate(d) {
-    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(d);
-    if (!m) return d;
-    return m[1] + "年" + Number(m[2]) + "月" + Number(m[3]) + "日";
-  }
-  function escapeHtml(s) {
-    return String(s)
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;");
-  }
+];
 
-  state.favs = loadFavs();
 
-  var themes = {};
-  ESSENCES.forEach(function (e) { themes[e.theme] = 1; });
-  var themeList = ["全部主题"].concat(Object.keys(themes).sort());
+const FAV_KEY = "essence-favs-v1";
+const state = { category: "all", favOnly: false, randomId: null, view: "essences" };
 
-  var sourceChips = document.getElementById("sourceChips");
-  var themeSelect = document.getElementById("themeSelect");
-  var favOnly = document.getElementById("favOnly");
-  var btnRandom = document.getElementById("btnRandom");
-  var btnAll = document.getElementById("btnAll");
-  var countLabel = document.getElementById("countLabel");
-  var list = document.getElementById("list");
+function loadFavs() {
+  try {
+    const raw = localStorage.getItem(FAV_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch (e) { return []; }
+}
+function saveFavs(ids) {
+  try { localStorage.setItem(FAV_KEY, JSON.stringify(ids)); } catch (e) {}
+}
+let favs = loadFavs();
 
-  SOURCES.forEach(function (s) {
-    var b = document.createElement("button");
-    b.type = "button";
-    b.className = "chip" + (s === state.source ? " active" : "");
-    b.textContent = s === "全部来源" ? "全部" : s;
-    b.setAttribute("data-source", s);
-    b.addEventListener("click", function () {
-      state.source = s;
-      state.randomId = null;
-      renderChips();
-      render();
-    });
-    sourceChips.appendChild(b);
+function formatDate(d) {
+  const m = String(d).match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (!m) return d;
+  return m[1] + "年" + Number(m[2]) + "月" + Number(m[3]) + "日";
+}
+function catName(id) {
+  const c = CATEGORIES.find(function (x) { return x.id === id; });
+  return c ? c.name : id;
+}
+function filteredEssences() {
+  return ESSENCES.filter(function (e) {
+    if (state.category !== "all" && e.category !== state.category) return false;
+    if (state.favOnly && favs.indexOf(e.id) < 0) return false;
+    return true;
+  }).slice().sort(function (a, b) {
+    if (a.date < b.date) return 1;
+    if (a.date > b.date) return -1;
+    return a.id < b.id ? 1 : -1;
   });
-
-  themeList.forEach(function (t) {
-    var o = document.createElement("option");
-    o.value = t;
-    o.textContent = t;
-    themeSelect.appendChild(o);
-  });
-  themeSelect.addEventListener("change", function () {
-    state.theme = themeSelect.value;
-    state.randomId = null;
-    render();
-  });
-  favOnly.addEventListener("change", function () {
-    state.favOnly = favOnly.checked;
-    state.randomId = null;
-    render();
-  });
-  btnRandom.addEventListener("click", function () {
-    var pool = getFiltered();
-    if (!pool.length) pool = ESSENCES.slice();
-    if (!pool.length) return;
-    var pick = pool[Math.floor(Math.random() * pool.length)];
-    state.randomId = pick.id;
-    render();
-  });
-  btnAll.addEventListener("click", function () {
-    state.randomId = null;
-    render();
-  });
-
-  function renderChips() {
-    var nodes = sourceChips.querySelectorAll(".chip");
-    for (var i = 0; i < nodes.length; i++) {
-      var n = nodes[i];
-      if (n.getAttribute("data-source") === state.source) n.classList.add("active");
-      else n.classList.remove("active");
-    }
-  }
-
-  function getFiltered() {
-    return ESSENCES.filter(function (e) {
-      if (state.source !== "全部来源" && e.source !== state.source) return false;
-      if (state.theme !== "全部主题" && e.theme !== state.theme) return false;
-      if (state.favOnly && state.favs.indexOf(e.id) < 0) return false;
-      return true;
-    }).slice().sort(function (a, b) {
-      if (a.date < b.date) return 1;
-      if (a.date > b.date) return -1;
-      if (a.id < b.id) return 1;
-      if (a.id > b.id) return -1;
-      return 0;
-    });
-  }
-
-  function cardHtml(e) {
-    var starred = state.favs.indexOf(e.id) >= 0;
-    var quote = e.quote
-      ? '<p class="quote">原话：「' + escapeHtml(e.quote) + '」</p>'
-      : "";
-    return (
-      '<article class="card" data-id="' + escapeHtml(e.id) + '">' +
-        '<div class="card-top">' +
-          '<p class="conclusion">' + escapeHtml(e.conclusion) + '</p>' +
-          '<button type="button" class="star' + (starred ? " on" : "") + '" data-star="' + escapeHtml(e.id) + '" aria-label="' + (starred ? "取消收藏" : "收藏") + '">' +
-            (starred ? "★" : "☆") +
-          '</button>' +
-        '</div>' +
-        '<p class="thinking">' + escapeHtml(e.thinking) + '</p>' +
-        quote +
-        '<div class="meta">' +
-          '<span>' + escapeHtml(formatDate(e.date)) + '</span>' +
-          '<span class="tag">' + escapeHtml(e.source) + '</span>' +
-          '<span class="tag">' + escapeHtml(e.theme) + '</span>' +
-        '</div>' +
-      '</article>'
-    );
-  }
-
-  function render() {
-    var filtered = getFiltered();
-    countLabel.textContent = "共 " + filtered.length + " 条";
-    btnAll.hidden = !state.randomId;
-
-    if (state.randomId) {
-      var entry = null;
-      for (var i = 0; i < ESSENCES.length; i++) {
-        if (ESSENCES[i].id === state.randomId) { entry = ESSENCES[i]; break; }
-      }
-      if (!entry) {
-        state.randomId = null;
-      } else {
-        list.innerHTML =
-          '<div class="date-h">今日翻到</div>' +
-          cardHtml(entry) +
-          '<div class="row"><button type="button" class="btn btn-quiet" id="btnAgain">再翻一条</button></div>';
-        bindStars();
-        var again = document.getElementById("btnAgain");
-        if (again) again.addEventListener("click", function () { btnRandom.click(); });
-        return;
-      }
-    }
-
-    if (!filtered.length) {
-      list.innerHTML = '<p class="empty">换一个来源或主题试试；收藏是存在本机的，换设备会清空。</p>';
-      return;
-    }
-
-    var byDate = [];
-    var index = {};
-    filtered.forEach(function (e) {
-      if (index[e.date] === undefined) {
-        index[e.date] = byDate.length;
-        byDate.push({ date: e.date, items: [] });
-      }
-      byDate[index[e.date]].items.push(e);
-    });
-
-    var html = "";
-    byDate.forEach(function (g) {
-      html += '<div class="date-h">' + escapeHtml(formatDate(g.date)) + '</div>';
-      g.items.forEach(function (e) { html += cardHtml(e); });
-    });
-    list.innerHTML = html;
-    bindStars();
-  }
-
-  function bindStars() {
-    var nodes = list.querySelectorAll("[data-star]");
-    for (var i = 0; i < nodes.length; i++) {
-      nodes[i].addEventListener("click", function (ev) {
-        var id = ev.currentTarget.getAttribute("data-star");
-        var pos = state.favs.indexOf(id);
-        if (pos >= 0) state.favs.splice(pos, 1);
-        else state.favs.push(id);
-        saveFavs(state.favs);
-        render();
-      });
-    }
-  }
-
+}
+function toolById(id) {
+  return COURSE_TOOLS.concat(BOOK_TOOLS).find(function (t) { return t.id === id; });
+}
+function toggleFav(id) {
+  if (favs.indexOf(id) >= 0) favs = favs.filter(function (x) { return x !== id; });
+  else favs = favs.concat([id]);
+  saveFavs(favs);
   render();
-})();
+}
+function pickRandom() {
+  const pool = filteredEssences();
+  const list = pool.length ? pool : ESSENCES;
+  if (!list.length) return;
+  state.randomId = list[Math.floor(Math.random() * list.length)].id;
+  state.view = "essences";
+  render();
+  const el = document.getElementById("card-" + state.randomId);
+  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+function renderChips() {
+  const box = document.getElementById("catChips");
+  box.innerHTML = "";
+  CATEGORIES.forEach(function (c) {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "chip" + (state.category === c.id ? " active" : "");
+    b.textContent = c.name;
+    b.onclick = function () {
+      state.category = c.id;
+      state.randomId = null;
+      state.view = "essences";
+      render();
+    };
+    box.appendChild(b);
+  });
+  const fav = document.createElement("button");
+  fav.type = "button";
+  fav.className = "chip soft" + (state.favOnly ? " active" : "");
+  fav.textContent = "只看收藏";
+  fav.onclick = function () { state.favOnly = !state.favOnly; state.randomId = null; render(); };
+  box.appendChild(fav);
+
+  const tools = document.createElement("button");
+  tools.type = "button";
+  tools.className = "chip" + (state.view === "tools" ? " active" : "");
+  tools.textContent = "思维工具箱";
+  tools.onclick = function () { state.view = state.view === "tools" ? "essences" : "tools"; render(); };
+  box.appendChild(tools);
+}
+function renderCard(e, highlight) {
+  const starred = favs.indexOf(e.id) >= 0;
+  const toolNames = (e.tools || []).map(function (id) {
+    const t = toolById(id);
+    return t ? (t.name || t.id) : id;
+  }).filter(Boolean);
+  const process = e.process.map(function (step, i) {
+    return '<li data-n="' + (i + 1) + '">' + escapeHtml(step) + "</li>";
+  }).join("");
+  const extend = e.extend.map(function (x) {
+    return "<p>" + escapeHtml(x) + "</p>";
+  }).join("");
+  return (
+    '<article class="card' + (highlight ? " highlight" : "") + '" id="card-' + e.id + '">' +
+      '<div class="card-top">' +
+        '<h3 class="q">' + escapeHtml(e.question) + "</h3>" +
+        '<button type="button" class="star' + (starred ? " on" : "") + '" aria-label="' + (starred ? "取消收藏" : "收藏") + '" data-fav="' + e.id + '">' + (starred ? "★" : "☆") + "</button>" +
+      "</div>" +
+      '<div class="conclusion">' + escapeHtml(e.conclusion) + "</div>" +
+      '<details class="block">' +
+        "<summary>思考过程</summary>" +
+        '<ol class="process">' + process + "</ol>" +
+      "</details>" +
+      '<details class="block">' +
+        "<summary>还能往哪想</summary>" +
+        '<div class="extend">' + extend +
+          '<div class="open-q"><strong>留给以后的问题</strong>' + escapeHtml(e.openQuestion) + "</div>" +
+        "</div>" +
+      "</details>" +
+      '<div class="meta">' +
+        "<span>" + formatDate(e.date) + "</span>" +
+        '<span class="tag">' + escapeHtml(e.source) + "</span>" +
+        '<span class="tag">' + escapeHtml(catName(e.category)) + "</span>" +
+        (toolNames.length ? '<span class="tag">相关：' + escapeHtml(toolNames.join("、")) + "</span>" : "") +
+      "</div>" +
+    "</article>"
+  );
+}
+function renderTool(t, isBook) {
+  const relatedTitles = (t.related || []).map(function (id) {
+    const e = ESSENCES.find(function (x) { return x.id === id; });
+    return e ? e.question : null;
+  }).filter(Boolean);
+  const steps = t.steps.map(function (s) { return "<li>" + escapeHtml(s) + "</li>"; }).join("");
+  return (
+    '<div class="tool" id="tool-' + t.id + '">' +
+      '<div class="name">' + escapeHtml(t.name) + "</div>" +
+      '<div class="from">' + (isBook ? ("来自《" + escapeHtml(t.book) + "》") : ("来自" + escapeHtml(t.from))) + "</div>" +
+      '<p class="solve"><strong>它解决什么：</strong>' + escapeHtml(t.solves) + "</p>" +
+      '<p class="solve"><strong>什么时候用：</strong>' + escapeHtml(t.when) + "</p>" +
+      "<details><summary>怎么用</summary><ol class='steps'>" + steps + "</ol></details>" +
+      '<div class="ex"><em>用在你身上（示例）</em>' + escapeHtml(t.example) + "</div>" +
+      (relatedTitles.length ? '<div class="links">连到你的思考：' + escapeHtml(relatedTitles.join("；")) + "</div>" : "") +
+    "</div>"
+  );
+}
+function escapeHtml(s) {
+  return String(s)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+function render() {
+  renderChips();
+  const desc = document.getElementById("catDesc");
+  const list = document.getElementById("list");
+  const count = document.getElementById("count");
+  const toolsPanel = document.getElementById("toolsPanel");
+  const essencePanel = document.getElementById("essencePanel");
+
+  if (state.view === "tools") {
+    essencePanel.style.display = "none";
+    toolsPanel.style.display = "block";
+    desc.textContent = "课上练过的方法 + 你读过的书里真正出现过的思维架子。展开看步骤；示例按你的工厂销售和口播来写。";
+    count.textContent = "";
+    let html = "";
+    html += '<div class="section-head"><h2>课上练过的</h2><p>可反复调用的思考动作。</p></div>';
+    COURSE_TOOLS.forEach(function (t) { html += renderTool(t, false); });
+    html += '<div class="section-head"><h2>思维工具箱 · 来自书里</h2><p>依据你提供的摘录和阅读观察卡整理；《人类简史》《文明之旅》还没有可用摘录，暂未收入。</p></div>';
+    BOOK_TOOLS.forEach(function (t) { html += renderTool(t, true); });
+    toolsPanel.innerHTML = html;
+    return;
+  }
+
+  toolsPanel.style.display = "none";
+  essencePanel.style.display = "block";
+  const cat = CATEGORIES.find(function (c) { return c.id === state.category; });
+  desc.textContent = cat && cat.desc ? cat.desc : "每条默认只看问题和结论；点开「思考过程」「还能往哪想」。星标存在本机。";
+  let items = filteredEssences();
+  if (state.randomId) {
+    const one = ESSENCES.find(function (e) { return e.id === state.randomId; });
+    items = one ? [one] : items;
+  }
+  count.textContent = state.randomId ? "随机 1 条" : ("共 " + items.length + " 条");
+  if (!items.length) {
+    list.innerHTML = '<div class="empty">这一类暂时没有。换个分类，或关掉「只看收藏」。</div>';
+    return;
+  }
+  list.innerHTML = items.map(function (e) {
+    return renderCard(e, state.randomId === e.id);
+  }).join("");
+  Array.prototype.forEach.call(list.querySelectorAll("[data-fav]"), function (btn) {
+    btn.onclick = function () { toggleFav(btn.getAttribute("data-fav")); };
+  });
+}
+
+document.getElementById("btnRandom").onclick = pickRandom;
+document.getElementById("btnAll").onclick = function () {
+  state.randomId = null; state.view = "essences"; render();
+};
+render();
+
 </script>
 </body>
 </html>
