@@ -1,0 +1,22 @@
+{
+  "name": "思维精华回顾",
+  "short_name": "思维精华",
+  "description": "个人思维精华离线回顾",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f7f6f3",
+  "theme_color": "#2E1F6E",
+  "icons": [
+    {
+      "src": "apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

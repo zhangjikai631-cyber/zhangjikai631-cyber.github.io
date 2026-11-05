@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="思维精华">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#2E1F6E">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
+<link rel="manifest" href="manifest.json">
+<meta name="format-detection" content="telephone=no">
+<title>思维精华回顾</title>
+<style>
+  :root {
+    --bg: #f7f6f3;
+    --card: #ffffff;
+    --text: #1a1a1a;
+    --text2: #4a4a4a;
+    --text3: #8a8a8a;
+    --border: #e6e4df;
+    --border2: #d0cdc6;
+    --accent: #2f6fed;
+    --accent-soft: #e8effc;
+    --radius: 16px;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB",
+      "Microsoft YaHei", "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    padding: 20px 16px 48px;
+    padding-bottom: calc(48px + env(safe-area-inset-bottom, 0px));
+  }
+  .wrap {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  h1 {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.35;
+    margin: 0 0 8px;
+  }
+  .sub {
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--text2);
+    margin: 0 0 8px;
+  }
+  .updated {
+    font-size: 13px;
+    color: var(--text3);
+    margin: 0 0 18px;
+  }
+  .howto {
+    background: var(--accent-soft);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--text2);
+    margin-bottom: 20px;
+  }
+  .howto strong {
+    display: block;
+    color: var(--text);
+    margin-bottom: 4px;
+    font-size: 14px;
+  }
+  .panel {
+    margin-bottom: 22px;
+  }
+  .panel-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text3);
+    letter-spacing: 0.02em;
+    margin: 0 0 10px;
+  }
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .chip {
+    appearance: none;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text2);
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-size: 14px;
+    line-height: 1.2;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .chip.active {
+    background: var(--text);
+    color: #fff;
+    border-color: var(--text);
+  }
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  select {
+    flex: 1 1 140px;
+    min-width: 140px;
+    font-size: 15px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text);
+  }
+  .toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--text2);
+    user-select: none;
+  }
+  .toggle input {
+    width: 18px;
+    height: 18px;
+  }
+  .btn {
+    appearance: none;
+    border: none;
+    border-radius: 12px;
+    padding: 11px 16px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+  }
+  .btn-quiet {
+    background: var(--card);
+    color: var(--text2);
+    border: 1px solid var(--border);
+  }
+  .count {
+    font-size: 14px;
+    color: var(--text3);
+  }
+  .date-h {
+    font-size: 16px;
+    font-weight: 650;
+    margin: 28px 0 12px;
+    color: var(--text);
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 18px;
+    margin-bottom: 14px;
+  }
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .conclusion {
+    font-size: 18px;
+    line-height: 1.55;
+    font-weight: 650;
+    margin: 0 0 12px;
+    flex: 1;
+  }
+  .star {
+    appearance: none;
+    border: none;
+    background: transparent;
+    font-size: 22px;
+    line-height: 1;
+    padding: 0;
+    color: var(--text3);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .star.on { color: #e6a100; }
+  .thinking {
+    font-size: 17px;
+    line-height: 1.75;
+    color: var(--text2);
+    margin: 0;
+  }
+  .quote {
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--text3);
+    border-left: 3px solid var(--border2);
+    padding-left: 12px;
+    margin: 14px 0 0;
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 12px;
+    align-items: center;
+    margin-top: 14px;
+    font-size: 12px;
+    color: var(--text3);
+  }
+  .tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    color: var(--text2);
+  }
+  .empty {
+    font-size: 15px;
+    color: var(--text3);
+    padding: 24px 4px;
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>思维精华回顾</h1>
+    <p class="sub">把你想通过、加深过的想法收成短文，手机上有空就翻一翻。书和课只是触发，中心永远是你自己的思考。</p>
+    <p class="updated">更新于 2026-11-05（北京时间）</p>
+    <div class="howto">
+      <strong>怎么用</strong>
+      按来源或主题筛选；点「随机翻一条」复习；星标只存在本机。离线也能打开，无需登录。
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">来源</div>
+      <div class="chips" id="sourceChips"></div>
+      <div class="row">
+        <select id="themeSelect" aria-label="主题"></select>
+        <label class="toggle"><input type="checkbox" id="favOnly"> 只看收藏</label>
+      </div>
+      <div class="row">
+        <button type="button" class="btn btn-primary" id="btnRandom">随机翻一条</button>
+        <button type="button" class="btn btn-quiet" id="btnAll" hidden>看全部列表</button>
+        <span class="count" id="countLabel"></span>
+      </div>
+    </div>
+
+    <div id="list"></div>
+  </div>
+
+<script>
+(function () {
+  var ESSENCES = [
+  {
+    "id": "e-20261105-abs-rel",
+    "date": "2026-11-05",
+    "source": "思维训练课",
+    "theme": "社会流动",
+    "conclusion": "日子过好了，不等于社会地位上升了。",
+    "thinking": "我以前把「过得比父辈好」和「往上走」混在一起。课上把绝对生活水平和相对社会地位拆开之后，我认这个区分：知识越来越便宜，并不自动打开上升通道；稀缺可能已经挪到机会、资本、资源和能试错的能力上。"
+  },
+  {
+    "id": "e-20261105-money-cost",
+    "date": "2026-11-05",
+    "source": "思维训练课",
+    "theme": "试错",
+    "conclusion": "钱，是把知识变成果的试错与等待成本。",
+    "thinking": "这是我自己提出来、还没深挖完的一句话。同样受过教育的两个人，一个有半年现金储备，一个必须当月赚钱，面对同一个创业或转行机会，决策会完全不一样。知识够了还不够，还得付得起试错和等待。",
+    "quote": "钱是把知识变成果的试错与等待成本"
+  },
+  {
+    "id": "e-20261105-knowledge-ladder",
+    "date": "2026-11-05",
+    "source": "思维训练课",
+    "theme": "社会流动",
+    "conclusion": "知识门槛降了，上升感却更难——稀缺点已经转移。",
+    "thinking": "我一直在问：古代读书能改变命运，现在知识几乎免费，为什么普通人反而觉得难以上升？我越来越觉得，不是知识没用了，是知识不再是瓶颈；优质机会、社会资本和试错空间才更紧。",
+    "quote": "古代读书能改变命运，现在知识几乎免费，为何普通人反而感觉难以上升？"
+  },
+  {
+    "id": "e-20261105-inequality",
+    "date": "2026-11-05",
+    "source": "思维训练课",
+    "theme": "分配",
+    "conclusion": "「发展必然导致不均」不能直接当事实。",
+    "thinking": "我进一步觉得，财富差距变大，可能和机会、福利、分配机制有关。不能把「发展就会不均」当成不用检验的结论，还要看在什么条件下成立，有没有反例。"
+  },
+  {
+    "id": "e-20261105-ai-scarcity",
+    "date": "2026-11-05",
+    "source": "思维训练课",
+    "theme": "AI与稀缺",
+    "conclusion": "知识近乎免费之后，稀缺可能转向「看见需求 + 匹配执行」。",
+    "thinking": "AI 让知识越来越便宜时，我怀疑真正难的变成：能不能识别当下和未来的社会需求，再把自己的专业和执行能力对上去。这条我先放进问题台账，不急着在书籍主线上展开。"
+  },
+  {
+    "id": "e-20261105-deep-talk",
+    "date": "2026-11-05",
+    "source": "聊天想法",
+    "theme": "学习方式",
+    "conclusion": "浅问浅答、马上表扬归档，等于没真正想。",
+    "thinking": "我明确批评过那种模式：抛个浅问题，我答一句就夸、就归档、就结束。我要的是真实思考、深度和辩论，不是被哄着过关。分支没讲透，就不能用一句结论收场。"
+  },
+  {
+    "id": "e-20261105-positioning",
+    "date": "2026-11-05",
+    "source": "灵感工作台",
+    "theme": "定位",
+    "conclusion": "工作台练的是「我说出自己的思考」，不是复述别人。",
+    "thinking": "我把定位定成：提升灵感，说出我自己的思考——普通人的成长分享。书、见闻、经历、念头、爆款都只是触发；产出必须是我的想法、我试过的做法、我得到的变化。把来源删掉还站得住，才算我的。",
+    "quote": "提升灵感，说出我自己的思考"
+  },
+  {
+    "id": "e-20261105-pipeline",
+    "date": "2026-11-05",
+    "source": "灵感工作台",
+    "theme": "系统",
+    "conclusion": "系统要像流水线：目的 → 主线 → 支线 → 方法 → 能力。",
+    "thinking": "模块一多我就蒙，不知道哪个在干什么。我要的不是堆一堆卡片方块，而是有归类、有引导、像流水线一样：先搞清目的，再拆主线和支线，方法为能力服务。后期灵感和卡片上百了，也要有怎么走下去的介绍。"
+  },
+  {
+    "id": "e-20261105-ask-first",
+    "date": "2026-11-05",
+    "source": "聊天想法",
+    "theme": "协作",
+    "conclusion": "先把最终目标弄清楚，再动手；不懂就问，别闷头干。",
+    "thinking": "我跟助手说清楚了：以后做什么事，不要闷头去干。哪里不明白要问我；我让干的事，要全方位理解清楚。先理解最终目标，再通过细节把它做完。"
+  },
+  {
+    "id": "e-20261105-two-windows",
+    "date": "2026-11-05",
+    "source": "聊天想法",
+    "theme": "协作",
+    "conclusion": "灵感工作台和爆款创作要通气，合作越利越好。",
+    "thinking": "我这边练思考和口播，那边拆片和做账号，其实能互相帮。两边的结构、甚至动物知识之类都可以通，没商量也可以主动分享——合作越有利越好。"
+  },
+  {
+    "id": "e-20261105-observe",
+    "date": "2026-11-05",
+    "source": "思维训练课",
+    "theme": "观察",
+    "conclusion": "观察要落到细节和换位，不只是「看到了」。",
+    "thinking": "我同意每周插一次大约五分钟的观察练习：从当天工厂或路上的一件事里说出十个细节，再换三个角度看——比如客户、老板、十年后的自己。练完回到主线，不另开一摊。"
+  },
+  {
+    "id": "e-20261105-no-oral-in-class",
+    "date": "2026-11-05",
+    "source": "聊天想法",
+    "theme": "边界",
+    "conclusion": "课上不硬转口播；深度和角度晚上再炼。",
+    "thinking": "口播转化环节我选择不加进语音课。课上专心练深度、角度和真实观察；晚上再拿到灵感工作台炼成卡片和口播。两条线分开，反而更清楚。"
+  },
+  {
+    "id": "e-20261101-scale",
+    "date": "2026-11-01",
+    "source": "思维训练课",
+    "theme": "尺度",
+    "conclusion": "个人觉得无辜，群体加总仍可能伤人。",
+    "thinking": "低价劣质品、群体模仿、平台激励叠在一起时，单个买家或卖家都可以觉得自己没做错。我试着从个体到群体再到制度换尺度看，才发现「我没错」和「集体结果很糟」可以同时成立。"
+  },
+  {
+    "id": "e-20261030-80-78",
+    "date": "2026-10-30",
+    "source": "思维训练课",
+    "theme": "证据",
+    "conclusion": "差一点的数字，不能直接当成药效证明。",
+    "thinking": "看到「200 只动物实验 80 对 78」时，我意识到不能直接归因于药效。随机波动、对照和证据门槛都要先问清楚，不然很容易被表面数字带着走。"
+  },
+  {
+    "id": "e-20261030-cash-debt",
+    "date": "2026-10-30",
+    "source": "读书笔记",
+    "theme": "现金流",
+    "conclusion": "还债和留现金不是口号，是取舍。",
+    "thinking": "读《小狗钱钱》时，我对债务和现金流那段加了自己的解释：不要为了提前还贷把必要现金掏空，也不要一味把剩余现金全拿去还债。高息低息、应急备用、违约风险要分开看，不能一刀切。书只是触发，取舍是我自己的。"
+  },
+  {
+    "id": "e-20261026-narrow-view",
+    "date": "2026-10-26",
+    "source": "思维训练课",
+    "theme": "视角",
+    "conclusion": "只从生意角度看一件事，视角已经窄了。",
+    "thinking": "用「三分钱猫条」做跨学科拆的时候，我要求自己跳出商业领域。我能指出自己视角狭窄，也能想到替代解释、反向因果和调查方向——这说明发散和因果链是要练的，不是天生就会。"
+  }
+];
+
+  var SOURCES = ["全部来源", "思维训练课", "灵感工作台", "聊天想法", "读书笔记"];
+  var FAV_KEY = "essence-favs-v1";
+
+  var state = {
+    source: "全部来源",
+    theme: "全部主题",
+    favOnly: false,
+    favs: [],
+    randomId: null
+  };
+
+  function loadFavs() {
+    try {
+      var raw = localStorage.getItem(FAV_KEY);
+      if (!raw) return [];
+      var parsed = JSON.parse(raw);
+      return Array.isArray(parsed) ? parsed : [];
+    } catch (e) { return []; }
+  }
+  function saveFavs(ids) {
+    try { localStorage.setItem(FAV_KEY, JSON.stringify(ids)); } catch (e) {}
+  }
+  function formatDate(d) {
+    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(d);
+    if (!m) return d;
+    return m[1] + "年" + Number(m[2]) + "月" + Number(m[3]) + "日";
+  }
+  function escapeHtml(s) {
+    return String(s)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  state.favs = loadFavs();
+
+  var themes = {};
+  ESSENCES.forEach(function (e) { themes[e.theme] = 1; });
+  var themeList = ["全部主题"].concat(Object.keys(themes).sort());
+
+  var sourceChips = document.getElementById("sourceChips");
+  var themeSelect = document.getElementById("themeSelect");
+  var favOnly = document.getElementById("favOnly");
+  var btnRandom = document.getElementById("btnRandom");
+  var btnAll = document.getElementById("btnAll");
+  var countLabel = document.getElementById("countLabel");
+  var list = document.getElementById("list");
+
+  SOURCES.forEach(function (s) {
+    var b = document.createElement("button");
+    b.type = "button";
+    b.className = "chip" + (s === state.source ? " active" : "");
+    b.textContent = s === "全部来源" ? "全部" : s;
+    b.setAttribute("data-source", s);
+    b.addEventListener("click", function () {
+      state.source = s;
+      state.randomId = null;
+      renderChips();
+      render();
+    });
+    sourceChips.appendChild(b);
+  });
+
+  themeList.forEach(function (t) {
+    var o = document.createElement("option");
+    o.value = t;
+    o.textContent = t;
+    themeSelect.appendChild(o);
+  });
+  themeSelect.addEventListener("change", function () {
+    state.theme = themeSelect.value;
+    state.randomId = null;
+    render();
+  });
+  favOnly.addEventListener("change", function () {
+    state.favOnly = favOnly.checked;
+    state.randomId = null;
+    render();
+  });
+  btnRandom.addEventListener("click", function () {
+    var pool = getFiltered();
+    if (!pool.length) pool = ESSENCES.slice();
+    if (!pool.length) return;
+    var pick = pool[Math.floor(Math.random() * pool.length)];
+    state.randomId = pick.id;
+    render();
+  });
+  btnAll.addEventListener("click", function () {
+    state.randomId = null;
+    render();
+  });
+
+  function renderChips() {
+    var nodes = sourceChips.querySelectorAll(".chip");
+    for (var i = 0; i < nodes.length; i++) {
+      var n = nodes[i];
+      if (n.getAttribute("data-source") === state.source) n.classList.add("active");
+      else n.classList.remove("active");
+    }
+  }
+
+  function getFiltered() {
+    return ESSENCES.filter(function (e) {
+      if (state.source !== "全部来源" && e.source !== state.source) return false;
+      if (state.theme !== "全部主题" && e.theme !== state.theme) return false;
+      if (state.favOnly && state.favs.indexOf(e.id) < 0) return false;
+      return true;
+    }).slice().sort(function (a, b) {
+      if (a.date < b.date) return 1;
+      if (a.date > b.date) return -1;
+      if (a.id < b.id) return 1;
+      if (a.id > b.id) return -1;
+      return 0;
+    });
+  }
+
+  function cardHtml(e) {
+    var starred = state.favs.indexOf(e.id) >= 0;
+    var quote = e.quote
+      ? '<p class="quote">原话：「' + escapeHtml(e.quote) + '」</p>'
+      : "";
+    return (
+      '<article class="card" data-id="' + escapeHtml(e.id) + '">' +
+        '<div class="card-top">' +
+          '<p class="conclusion">' + escapeHtml(e.conclusion) + '</p>' +
+          '<button type="button" class="star' + (starred ? " on" : "") + '" data-star="' + escapeHtml(e.id) + '" aria-label="' + (starred ? "取消收藏" : "收藏") + '">' +
+            (starred ? "★" : "☆") +
+          '</button>' +
+        '</div>' +
+        '<p class="thinking">' + escapeHtml(e.thinking) + '</p>' +
+        quote +
+        '<div class="meta">' +
+          '<span>' + escapeHtml(formatDate(e.date)) + '</span>' +
+          '<span class="tag">' + escapeHtml(e.source) + '</span>' +
+          '<span class="tag">' + escapeHtml(e.theme) + '</span>' +
+        '</div>' +
+      '</article>'
+    );
+  }
+
+  function render() {
+    var filtered = getFiltered();
+    countLabel.textContent = "共 " + filtered.length + " 条";
+    btnAll.hidden = !state.randomId;
+
+    if (state.randomId) {
+      var entry = null;
+      for (var i = 0; i < ESSENCES.length; i++) {
+        if (ESSENCES[i].id === state.randomId) { entry = ESSENCES[i]; break; }
+      }
+      if (!entry) {
+        state.randomId = null;
+      } else {
+        list.innerHTML =
+          '<div class="date-h">今日翻到</div>' +
+          cardHtml(entry) +
+          '<div class="row"><button type="button" class="btn btn-quiet" id="btnAgain">再翻一条</button></div>';
+        bindStars();
+        var again = document.getElementById("btnAgain");
+        if (again) again.addEventListener("click", function () { btnRandom.click(); });
+        return;
+      }
+    }
+
+    if (!filtered.length) {
+      list.innerHTML = '<p class="empty">换一个来源或主题试试；收藏是存在本机的，换设备会清空。</p>';
+      return;
+    }
+
+    var byDate = [];
+    var index = {};
+    filtered.forEach(function (e) {
+      if (index[e.date] === undefined) {
+        index[e.date] = byDate.length;
+        byDate.push({ date: e.date, items: [] });
+      }
+      byDate[index[e.date]].items.push(e);
+    });
+
+    var html = "";
+    byDate.forEach(function (g) {
+      html += '<div class="date-h">' + escapeHtml(formatDate(g.date)) + '</div>';
+      g.items.forEach(function (e) { html += cardHtml(e); });
+    });
+    list.innerHTML = html;
+    bindStars();
+  }
+
+  function bindStars() {
+    var nodes = list.querySelectorAll("[data-star]");
+    for (var i = 0; i < nodes.length; i++) {
+      nodes[i].addEventListener("click", function (ev) {
+        var id = ev.currentTarget.getAttribute("data-star");
+        var pos = state.favs.indexOf(id);
+        if (pos >= 0) state.favs.splice(pos, 1);
+        else state.favs.push(id);
+        saveFavs(state.favs);
+        render();
+      });
+    }
+  }
+
+  render();
+})();
+</script>
+</body>
+</html>
