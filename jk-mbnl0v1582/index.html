@@ -377,6 +377,62 @@
     font-size: 12px; color: var(--text3);
     line-height: 1.6; text-align: center;
   }
+
+  .chain {
+    margin: 0 0 14px;
+    padding-top: 2px;
+  }
+  .chain-label {
+    font-size: 12px; font-weight: 600;
+    color: var(--text3); letter-spacing: .04em;
+    margin: 0 0 4px;
+  }
+  .chain-hint {
+    font-size: 12px; color: var(--text3);
+    margin: 0 0 8px; line-height: 1.5;
+  }
+  .chain-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    padding: 4px 2px 10px;
+    margin: 0 -2px;
+    scrollbar-width: thin;
+  }
+  .chain-row {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    width: max-content;
+    gap: 0;
+  }
+  .chain-node {
+    flex: 0 0 auto;
+    width: 152px;
+    background: var(--purple-soft);
+    border: 1px solid #d8d0ea;
+    border-radius: 12px;
+    padding: 12px 10px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.45;
+    color: var(--text);
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .chain-arrow {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 6px;
+    color: var(--amber);
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1;
+  }
 </style>
 
 </head>
@@ -385,7 +441,7 @@
   <header class="hero">
     <h1>思维精华回顾</h1>
     <p class="sub">三块：值得反复想的思考、书里学到的知识、可调用的思维工具。从今天起重新攒；只收过品质分的。</p>
-    <p class="updated">更新于 2026-11-06（北京时间）· 思考 1 条 · 11 个工具</p>
+    <p class="updated">更新于 2026-11-06（北京时间）· 思考 2 条 · 11 个工具</p>
   </header>
 
   <div class="howto">
@@ -451,6 +507,36 @@ const ESSENCES = [
     ],
     openQuestion: "判断力怎么验证？这三层（跟有经验的人学、自己看书练模拟、工作中小实验）哪一层最容易被跳过？",
     tools: ["opp-cost", "feynman"],
+  },
+  {
+    id: "e-20261106-money-experience-boundary",
+    date: "2026-11-06",
+    source: "思维训练课",
+    category: "judge",
+    question: "钱和经验，哪个能帮你看到边界外的东西？",
+    conclusion: "钱和经验不是二选一，是互补——钱负责让你撞上边界外，经验负责让你看懂撞上的东西。",
+    process: [
+      "钱买次数，经验补概率。钱买的错天然在边界外，但没经验的人看不懂，所以钱买的教训要靠经验消化。",
+      "经验有双刃剑：帮你消化边界外的错，同时缩小你的边界——容易用旧答案套新问题。比如传统电商老运营到抖音上，从「人来找货」变成「货去找人」，经验就失效了。",
+      "判断经验能不能用，看问题在不在你见过的范围内：一是「我接触过没有」，二是「质疑的原因我处理过没有」。但这两个信号防不了「我不知道我不知道的」，那一层只能靠小成本试错来暴露边界。"
+    ],
+    extend: [
+      "传统电商老运营搬到抖音，人货关系反过来了——判断旧经验能不能用，先问自己接触过没有、质疑的原因处理过没有。",
+      "钱负责让你撞上边界外，经验负责让你看懂；撞上「我不知道我不知道的」时，用小成本试错把边界露出来。"
+    ],
+    openQuestion: "小成本试错的「小」怎么定义？经验消化教训的过程本身能不能加速？",
+    chain: {
+      title: "这条链的先后",
+      nodes: [
+        "钱买次数",
+        "经验补概率",
+        "钱买的错在边界外",
+        "经验消化教训",
+        "经验会蒙住你（质疑+收集事实）",
+        "判断经验能不能用（接触过没有/质疑的原因处理过没有）",
+        "小成本试错暴露「我不知道我不知道的」"
+      ]
+    },
     rating: { own: 5, process: 5, transfer: 5, revisit: 5, clarity: 5, total: 25 }
   }
 ];
@@ -789,6 +875,23 @@ function renderChips() {
   fav.onclick = function () { state.favOnly = !state.favOnly; state.randomId = null; render(); };
   box.appendChild(fav);
 }
+function renderChain(chain) {
+  if (!chain || !chain.nodes || !chain.nodes.length) return "";
+  const parts = [];
+  chain.nodes.forEach(function (node, i) {
+    if (i > 0) parts.push('<div class="chain-arrow" aria-hidden="true">→</div>');
+    parts.push('<div class="chain-node">' + escapeHtml(node) + "</div>");
+  });
+  return (
+    '<div class="chain">' +
+      '<div class="chain-label">' + escapeHtml(chain.title || "这条链的先后") + "</div>" +
+      '<div class="chain-hint">左右滑动看完整次序 →</div>' +
+      '<div class="chain-scroll" role="region" aria-label="思考链次序">' +
+        '<div class="chain-row">' + parts.join("") + "</div>" +
+      "</div>" +
+    "</div>"
+  );
+}
 function renderCard(e, highlight) {
   const starred = favs.indexOf(e.id) >= 0;
   const toolNames = (e.tools || []).map(function (id) {
@@ -808,6 +911,7 @@ function renderCard(e, highlight) {
         '<button type="button" class="star' + (starred ? " on" : "") + '" aria-label="收藏" data-fav="' + e.id + '">' + (starred ? "★" : "☆") + "</button>" +
       "</div>" +
       '<div class="conclusion">' + escapeHtml(e.conclusion) + "</div>" +
+      renderChain(e.chain) +
       '<details class="block"><summary>思考过程</summary><ol class="process">' + process + "</ol></details>" +
       '<details class="block"><summary>还能往哪想</summary><div class="extend">' + extend +
         '<div class="open-q"><strong>留给以后的问题</strong>' + escapeHtml(e.openQuestion || "") + "</div></div></details>" +
